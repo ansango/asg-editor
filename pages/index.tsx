@@ -1,5 +1,5 @@
-
 import { ContainerBase, Layout } from "../components";
+import { fetcher } from "../lib/utlis";
 
 const Home = () => {
   return (

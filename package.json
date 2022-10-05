@@ -11,10 +11,10 @@
   "dependencies": {
     "@preline/overlay": "^1.2.0",
     "aws-sdk": "^2.1229.0",
-    "axios": "^1.0.0",
+    "cors": "^2.8.5",
     "next": "12.3.1",
     "next-auth": "^4.12.2",
-    "next-connect": "^0.13.0",
+    "next-connect": "^1.0.0-next.3",
     "nodemailer": "^6.8.0",
     "preline": "^1.2.1",
     "react": "18.2.0",
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
+    "@types/cors": "^2.8.12",
     "@types/node": "18.8.2",
     "@types/nodemailer": "^6.4.6",
     "@types/react": "18.0.21",

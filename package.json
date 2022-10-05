@@ -9,8 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.185.0",
     "@preline/overlay": "^1.2.0",
-    "aws-sdk": "^2.1229.0",
     "cors": "^2.8.5",
     "next": "12.3.1",
     "next-auth": "^4.12.2",

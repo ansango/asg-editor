@@ -1,10 +1,7 @@
-import type { NextPage } from "next";
+
 import { ContainerBase, Layout } from "../components";
-import { fetcher } from "../lib/utlis";
 
 const Home = () => {
-  const data = fetcher("http://localhost:3000/api/hello");
-
   return (
     <Layout>
       <ContainerBase>

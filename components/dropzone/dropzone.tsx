@@ -17,16 +17,18 @@ type DropZoneContextValue = {
   totalSize: string | null;
   files: DropFile[];
   setFiles: (files: DropFile[]) => void;
-  removeFile: (file: DropFile) => void;
   removeAllFiles: () => void;
+  getRootProps: any;
+  getInputProps: any;
 };
 
 const initialState: DropZoneContextValue = {
   totalSize: null,
   files: [],
   setFiles: () => {},
-  removeFile: () => {},
   removeAllFiles: () => {},
+  getRootProps: () => {},
+  getInputProps: () => {},
 };
 
 const DropZoneContext = createContext<DropZoneContextValue>(
@@ -40,30 +42,49 @@ export const DropZoneProvider: FC<{
   className?: string;
 }> = ({ children, className }) => {
   const [files, setFiles] = useState<DropFile[]>([]);
-  const removeFile = (file: DropFile) => {
-    const newFiles = [...files];
-    newFiles.splice(newFiles.indexOf(file), 1);
-    setFiles(newFiles);
-  };
+  const { getRootProps, getInputProps } = useDROPZONE({
+    accept: {
+      "image/*": [],
+    },
+    onDrop: useCallback((acceptedFiles: any) => {
+      setFiles(
+        acceptedFiles.map((file: any) =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        )
+      );
+    }, []),
+  });
+
+  useEffect(() => {
+    // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
+    return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [files]);
+
   const removeAllFiles = () => setFiles([]);
   const totalSizeInMB = (
     files.reduce((acc, file) => acc + file.size, 0) /
     1024 /
     1024
   ).toFixed(2);
+
   const totalSize =
     totalSizeInMB && parseFloat(totalSizeInMB) > 0
       ? `${totalSizeInMB} Mb`
       : null;
+
   return (
     <DropZoneContext.Provider
       value={{
         ...initialState,
         files,
         setFiles,
-        removeFile,
         removeAllFiles,
         totalSize,
+        getRootProps,
+        getInputProps,
       }}
     >
       <div className={className}>{children}</div>
@@ -71,41 +92,8 @@ export const DropZoneProvider: FC<{
   );
 };
 
-const useOnDrop = ({
-  files,
-  setFiles,
-}: {
-  files: DropFile[];
-  setFiles: (files: DropFile[]) => void;
-}) => {
-  return useCallback(
-    (acceptedFiles: any) =>
-      setFiles([
-        ...files,
-        ...acceptedFiles.map((file: any) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        ),
-      ]),
-    [files, setFiles]
-  );
-};
-
 export const DropZone = () => {
-  const { files, setFiles } = useDropZone();
-  const { getRootProps, getInputProps } = useDROPZONE({
-    accept: {
-      "image/*": [],
-    },
-    onDrop: useOnDrop({ files, setFiles }),
-  });
-  useEffect(() => {
-    // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
-    return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  const { getInputProps, getRootProps } = useDropZone();
   return (
     <div
       {...getRootProps()}

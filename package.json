@@ -11,6 +11,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.185.0",
     "@preline/overlay": "^1.2.0",
+    "axios": "^1.0.0",
     "cors": "^2.8.5",
     "next": "12.3.1",
     "next-auth": "^4.12.2",
@@ -19,6 +20,7 @@
     "preline": "^1.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-dropzone": "^14.2.2",
     "react-icons": "^4.4.0",
     "sharp": "^0.31.1"
   },

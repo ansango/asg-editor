@@ -1,9 +1,6 @@
 import { ContainerBase, Layout } from "../components";
-import { fetcher } from "../lib/utlis";
 
 const Home = () => {
-  const data = fetcher("http://localhost:3000/api/aws");
-
   return (
     <Layout>
       <ContainerBase>

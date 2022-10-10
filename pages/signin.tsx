@@ -9,7 +9,7 @@ const SignIn: NextPage = () => {
           <div className="p-4 sm:p-7">
             <div className="text-center">
               <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">
-                Welcome to asg-s3
+                Welcome to asg-editor
               </h1>
             </div>
 

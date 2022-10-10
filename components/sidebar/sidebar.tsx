@@ -13,9 +13,9 @@ const links: {
     icon: "FiHome",
   },
   {
-    name: "Uploads",
-    href: "/uploads",
-    icon: "FiUpload",
+    name: "Editor",
+    href: "/editor",
+    icon: "FiEdit",
   },
 ];
 
